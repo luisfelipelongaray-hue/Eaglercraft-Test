@@ -67,7 +67,7 @@ void main() {
 
   // Clouds are intentionally chunky: they keep the preview in a voxel-like language.
   float cloudNoise = fbm(vec2(x * 1.4 + motion * animated, y * 3.1 + 8.0));
-  float cloudBand = smoothstep(0.58, 0.77, cloudNoise) * smoothstep(0.37, 0.12, y);
+  float cloudBand = smoothstep(0.58, 0.77, cloudNoise) * (1.0 - smoothstep(0.12, 0.37, y));
   color = mix(color, vec3(0.83, 0.95, 0.86), cloudBand * 0.18 * u_intensity);
 
   // Far mountains.
