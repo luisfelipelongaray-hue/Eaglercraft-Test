@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#08110f" />
+    <meta
+      name="description"
+      content="Eaglercraft Test: laboratório web para testar shaders e preparar um cliente Eaglercraft no navegador."
+    />
+    <title>Eaglercraft Test — laboratório web</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Eaglercraft Test, início">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span>Eaglercraft<span class="brand-accent">.Test</span></span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Navegação principal">
+        <a href="#shader-lab">Shader lab</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#publicar">Publicar</a>
+        <a class="nav-cta" href="game.html">Abrir protótipo <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="inicio">
+      <section class="hero section-wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot"></span> laboratório aberto · WebGL</p>
+          <h1 id="hero-title">Um novo <em>mundo em blocos</em>, direto no navegador.</h1>
+          <p class="hero-lede">
+            Uma base independente para experimentar renderização, shaders e recursos de um
+            cliente Eaglercraft — leve, editável e pronta para o GitHub Pages.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="game.html">Testar protótipo <span aria-hidden="true">→</span></a>
+            <a class="button button-quiet" href="#shader-lab">Explorar shaders <span aria-hidden="true">↓</span></a>
+          </div>
+          <dl class="hero-facts" aria-label="Detalhes do projeto">
+            <div>
+              <dt>01</dt>
+              <dd>WebGL sem dependências</dd>
+            </div>
+            <div>
+              <dt>02</dt>
+              <dd>Presets de iluminação</dd>
+            </div>
+            <div>
+              <dt>03</dt>
+              <dd>Deploy estático</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="hero-visual" aria-label="Prévia animada de um cenário em blocos">
+          <div class="visual-topline">
+            <span><span class="mini-dot"></span> RENDER PREVIEW</span>
+            <span class="mono">FPS <strong id="hero-fps">--</strong></span>
+          </div>
+          <div class="canvas-frame hero-canvas-frame">
+            <canvas id="hero-canvas" width="960" height="640"></canvas>
+            <div class="canvas-overlay overlay-coordinates mono">X: 128 &nbsp; Y: 72 &nbsp; Z: -46</div>
+            <div class="canvas-overlay overlay-mode"><span class="pulse-ring"></span> VIBRANT / DAY</div>
+            <div class="crosshair" aria-hidden="true"><i></i><i></i></div>
+          </div>
+          <div class="visual-bottomline">
+            <span>shader: <strong>skyline-vibrant</strong></span>
+            <span class="mono">v0.1.0-preview</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="shader-lab" class="lab-section section-wrap" aria-labelledby="lab-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / renderização</p>
+            <h2 id="lab-title">Shader lab</h2>
+          </div>
+          <p>
+            Veja as ideias de iluminação funcionando em tempo real. Escolha um preset, ajuste a
+            intensidade e observe o resultado sem baixar nada.
+          </p>
+        </div>
+
+        <div class="lab-layout">
+          <div class="canvas-frame lab-canvas-frame">
+            <canvas id="shader-canvas" width="1280" height="720"></canvas>
+            <div id="webgl-fallback" class="webgl-fallback" hidden>
+              <strong>WebGL não está disponível.</strong>
+              <span>Ative a aceleração gráfica do navegador para ver a prévia.</span>
+            </div>
+            <div class="canvas-corner corner-tl"></div>
+            <div class="canvas-corner corner-br"></div>
+            <div class="lab-stats mono">
+              <span id="lab-renderer">WEBGL / DETECTANDO</span>
+              <span>•</span>
+              <span><strong id="lab-fps">--</strong> FPS</span>
+            </div>
+          </div>
+
+          <aside class="control-panel" aria-label="Controles do shader lab">
+            <div class="panel-header">
+              <span class="panel-kicker">PALETTE / 04</span>
+              <span id="save-status" class="save-status">salvo localmente</span>
+            </div>
+
+            <div class="preset-list" role="group" aria-label="Presets de shader">
+              <button class="preset is-active" type="button" data-preset="0">
+                <span class="preset-swatch swatch-vanilla"></span>
+                <span><strong>Vanilla</strong><small>luz limpa e neutra</small></span>
+                <span class="preset-key mono">01</span>
+              </button>
+              <button class="preset" type="button" data-preset="1">
+                <span class="preset-swatch swatch-vibrant"></span>
+                <span><strong>Vibrant</strong><small>cores vivas e contraste</small></span>
+                <span class="preset-key mono">02</span>
+              </button>
+              <button class="preset" type="button" data-preset="2">
+                <span class="preset-swatch swatch-soft"></span>
+                <span><strong>Soft light</strong><small>brilho difuso e suave</small></span>
+                <span class="preset-key mono">03</span>
+              </button>
+              <button class="preset" type="button" data-preset="3">
+                <span class="preset-swatch swatch-pbr"></span>
+                <span><strong>PBR dusk</strong><small>reflexos para o fim do dia</small></span>
+                <span class="preset-key mono">04</span>
+              </button>
+            </div>
+
+            <div class="control-group">
+              <div class="control-label"><label for="intensity">Intensidade</label><output id="intensity-value" for="intensity">72%</output></div>
+              <input id="intensity" type="range" min="0" max="100" value="72" />
+            </div>
+            <div class="control-group">
+              <div class="control-label"><label for="pixel-size">Pixelização</label><output id="pixel-value" for="pixel-size">3 px</output></div>
+              <input id="pixel-size" type="range" min="1" max="8" value="3" />
+            </div>
+            <label class="switch-row">
+              <span><strong>Céu animado</strong><small>movimento suave das nuvens</small></span>
+              <input id="motion-toggle" type="checkbox" checked />
+              <span class="switch" aria-hidden="true"></span>
+            </label>
+            <button id="reset-controls" class="reset-button" type="button">Restaurar padrão <span aria-hidden="true">↺</span></button>
+
+            <p class="panel-note">Os controles são guardados apenas neste navegador. Nada é enviado para um servidor.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="roadmap" class="roadmap-section section-wrap" aria-labelledby="roadmap-title">
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">02 / construção</p>
+            <h2 id="roadmap-title">Começa pequeno.<br /><em>Fica jogável.</em></h2>
+          </div>
+          <p>
+            Esta primeira base separa o visual do cliente. Assim dá para iterar nos shaders agora
+            e conectar um build Eaglercraft compatível quando ele estiver pronto.
+          </p>
+        </div>
+        <div class="roadmap-grid">
+          <article class="roadmap-card done">
+            <span class="card-index mono">01 — pronto</span>
+            <div class="card-icon" aria-hidden="true">✦</div>
+            <h3>Shader playground</h3>
+            <p>Quatro direções visuais, controles em tempo real e fallback para navegadores sem WebGL.</p>
+          </article>
+          <article class="roadmap-card current">
+            <span class="card-index mono">02 — agora</span>
+            <div class="card-icon" aria-hidden="true">◈</div>
+            <h3>Cliente no navegador</h3>
+            <p>O protótipo já tem uma área própria para receber o cliente compilado e seus assets.</p>
+          </article>
+          <article class="roadmap-card next">
+            <span class="card-index mono">03 — próximo</span>
+            <div class="card-icon" aria-hidden="true">⌁</div>
+            <h3>Multiplayer e packs</h3>
+            <p>Adicionar servidores, resource packs e configurações sem quebrar o deploy estático.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="publicar" class="publish-section section-wrap" aria-labelledby="publish-title">
+        <div class="publish-card">
+          <div class="publish-copy">
+            <p class="eyebrow">03 / publicação</p>
+            <h2 id="publish-title">Pronto para virar<br /><em>um link.</em></h2>
+            <p>
+              A pasta <code>docs/</code> está pronta para ser a fonte do GitHub Pages nesta branch.
+            </p>
+            <a class="button button-primary" href="https://github.com/luisfelipelongaray-hue/Eaglercraft-Test" target="_blank" rel="noreferrer">Abrir repositório <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="publish-terminal" aria-label="Comandos para publicar">
+            <div class="terminal-bar"><span></span><span></span><span></span><b>deploy.sh</b></div>
+            <pre><code><span class="code-muted"># depois de habilitar Pages → GitHub Actions</span>
+<span class="code-prompt">$</span> git add .
+<span class="code-prompt">$</span> git commit -m <span class="code-string">"atualiza shaders"</span>
+<span class="code-prompt">$</span> git push origin <span class="code-string">arena/019fd8d7-eaglercraft-test</span>
+
+<span class="code-ok">✓ página pronta para publicar</span>
+<span class="code-muted">  Settings → Pages → branch /docs</span></code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer section-wrap">
+      <a class="brand" href="#inicio" aria-label="Voltar ao início">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span>Eaglercraft<span class="brand-accent">.Test</span></span>
+      </a>
+      <p>Feito para experimentar. <span aria-hidden="true">✦</span> <span id="year">2026</span></p>
+      <div class="footer-links"><a href="#shader-lab">Shaders</a><a href="#publicar">GitHub Pages</a></div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#08110f" />
+    <meta name="description" content="Protótipo jogável do Eaglercraft Test com mundo em blocos e iluminação experimental." />
+    <title>Protótipo — Eaglercraft Test</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="js/game.js" defer></script>
+  </head>
+  <body class="game-page">
+    <header class="topbar game-topbar">
+      <a class="brand" href="index.html" aria-label="Eaglercraft Test, início">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span>Eaglercraft<span class="brand-accent">.Test</span></span>
+      </a>
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> voltar ao laboratório</a>
+    </header>
+
+    <main class="game-content section-wrap">
+      <section class="game-intro" aria-labelledby="game-title">
+        <div>
+          <p class="eyebrow"><span class="status-dot"></span> sandbox local · protótipo 01</p>
+          <h1 id="game-title">Entra no <em>mundo.</em></h1>
+        </div>
+        <p>
+          Um pequeno playground interativo para validar o visual antes de conectar o cliente
+          Eaglercraft compilado.
+        </p>
+      </section>
+
+      <section class="game-stage" aria-label="Sandbox de blocos interativo">
+        <canvas id="game-canvas" width="1280" height="720"></canvas>
+        <div class="game-hud" aria-hidden="true">
+          <span id="game-coordinates" class="game-coordinates">X: 000 &nbsp; Z: 000</span>
+          <span id="game-mode" class="game-badge"><span class="mini-dot"></span> VIBRANT / DAY</span>
+          <span class="game-crosshair"></span>
+          <span class="game-help">WASD / setas para mover · espaço para colocar bloco · Q para remover</span>
+        </div>
+      </section>
+
+      <section class="game-panel" aria-label="Controles do protótipo">
+        <div class="game-info-card">
+          <h2>Sandbox de shader</h2>
+          <p>
+            O mapa abaixo é uma cena de teste independente: serve para testar iluminação, paleta e
+            input sem fingir que já é o cliente completo. Use <code>WASD</code>, setas, <code>Espaço</code>
+            e <code>Q</code> para brincar.
+          </p>
+          <div class="block-actions" role="group" aria-label="Ações de bloco">
+            <button class="small-button is-selected" type="button" data-block="grass"><span class="block-chip grass-chip"></span> grama</button>
+            <button class="small-button" type="button" data-block="stone"><span class="block-chip stone-chip"></span> pedra</button>
+            <button class="small-button" type="button" data-block="water"><span class="block-chip water-chip"></span> água</button>
+            <button id="shader-toggle" class="small-button shader-button" type="button">PBR dusk</button>
+          </div>
+        </div>
+        <details class="client-details">
+          <summary>Conectar um cliente Eaglercraft compilado</summary>
+          <p>
+            Coloque o build autorizado dentro de <code>docs/client/</code> e siga o passo a passo no
+            <code>README.md</code>. A página foi deixada separada para que o cliente e os shaders
+            possam evoluir sem misturar assets ou credenciais de servidor.
+          </p>
+        </details>
+      </section>
+    </main>
+  </body>
+</html>
